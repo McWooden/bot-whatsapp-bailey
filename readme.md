@@ -1,3 +1,7 @@
+# Important!
+Repository ini tidak diupdate lagi karena tidak mendapatkan informasi cara mengirim tombol, alih alih saya menjelajahi orang lain yang mengetahui cara mengirim button, berikut referensi npm nya
+https://www.npmjs.com/package/baileys-mod
+
 # Bailey WhatsApp Bot
 
 [![GitHub stars](https://img.shields.io/github/stars/Lenwyy?label=Support%20Original%20Repo&style=for-the-badge)](https://github.com/Lenwyy) [![YouTube Subscribe](https://img.shields.io/badge/Subscribe%20to%20Lenwy-red?logo=youtube&style=for-the-badge)](https://www.youtube.com/@lenwy)
@@ -70,7 +74,7 @@ Kini, setelah iterasi terbaru, Bailey udah disederhanakan ke level **paling rend
   Gampang banget—tambah `else if` aja tanpa switch rumit!
 
 ## Troubleshooting
-- **Error "Bad MAC"**: Hapus folder `./BaileySesi` dan pair ulang.
+- **Error "Bad MAC"**: Hapus folder `./session` dan pair ulang.
 - **Koneksi Putus**: Bot auto-reconnect dengan delay 5 detik.
 - **Versi Baileys**: Update dengan `npm update @whiskeysockets/baileys`.
 
@@ -80,3 +84,6 @@ MIT License – Bebas gunakan, tapi **selalu credit Lenwy** sebagai sumber asli.
 ---
 
 **Terima kasih telah menggunakan Bailey! Sekarang, pergi yuk ke [GitHub Lenwy](https://github.com/Lenwyy) beri star/follow, dan [subscribe YouTube-nya](https://www.youtube.com/@lenwy) untuk belajar lebih banyak. Mari bangun komunitas bot WhatsApp yang keren! 💚**
+
+## Referensi
+https://medium.com/@elvisbrazil/automating-whatsapp-with-node-js-and-baileys-send-receive-and-broadcast-messages-with-code-0656c40bd928

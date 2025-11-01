@@ -12,8 +12,7 @@ yarn-error.log*
 .env.production.local
 
 # Session files (sensitive auth data)
-BaileySesi/
-LenwySesi/  # Kalo masih ada dari versi lama
+session/
 
 # Logs
 logs

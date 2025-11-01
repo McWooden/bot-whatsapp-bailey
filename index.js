@@ -1,0 +1,98 @@
+// index.js
+// Import Module 
+import { makeWASocket, useMultiFileAuthState, fetchLatestBaileysVersion } from "baileys";
+import pino from "pino";
+import chalk from "chalk";
+import readline from "readline";
+
+// Metode Pairing
+const usePairingCode = true;
+
+// Promt Input Terminal
+async function question(promt) {
+    process.stdout.write(promt);
+    const r1 = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+
+    return new Promise((resolve) => r1.question("", (ans) => {
+        r1.close();
+        resolve(ans);
+    }));
+}
+
+async function connectToWhatsApp() {
+    const { state, saveCreds } = await useMultiFileAuthState('./BaileySesi');
+
+    // Versi Terbaru
+    const { version, isLatest } = await fetchLatestBaileysVersion();
+    console.log(`Bailey Using WA v${version.join('.')}, isLatest: ${isLatest}`);
+
+    const sock = makeWASocket({
+        logger: pino({ level: "silent" }),
+        printQRInTerminal: !usePairingCode,
+        auth: state,
+        browser: ['Ubuntu', 'Chrome', '20.0.04'],
+        version: version,
+        syncFullHistory: true,
+        generateHighQualityLinkPreview: true,
+        getMessage: async (key) => {
+            return { message: {} };
+        }
+    });
+
+    // Handle Pairing Code
+    if (usePairingCode && !sock.authState.creds.registered) {
+        try {
+            const phoneNumber = await question('☘️ Masukan Nomor Yang Diawali Dengan 62 :\n');
+            const code = await sock.requestPairingCode(phoneNumber.trim());
+            console.log(`🎁 Pairing Code : ${code}`);
+        } catch (err) {
+            console.error('Failed to get pairing code:', err);
+        }
+    }
+
+    // Menyimpan Sesi Login
+    sock.ev.on("creds.update", saveCreds);
+
+    // Informasi Koneksi
+    sock.ev.on("connection.update", (update) => {
+        const { connection, lastDisconnect } = update;
+        if (connection === "close") {
+            console.log(chalk.red("❌  Koneksi Terputus, Mencoba Menyambung Ulang"));
+            connectToWhatsApp();
+        } else if (connection === "open") {
+            console.log(chalk.green("✔  Bot Berhasil Terhubung Ke WhatsApp"));
+        }
+    });
+
+    // Respon Pesan Masuk
+    sock.ev.on("messages.upsert", async (m) => {
+        const msg = m.messages[0];
+
+        if (!msg.message) return;
+
+        const body = msg.message.conversation || msg.message.extendedTextMessage?.text || "";
+        const sender = msg.key.remoteJid;
+        const pushname = msg.pushName || "Bailey";
+
+        // Log Pesan Masuk Terminal (case pesan)
+        const listColor = ["red", "green", "yellow", "magenta", "cyan", "white", "blue"];
+        const randomColor = listColor[Math.floor(Math.random() * listColor.length)];
+
+        console.log(
+            chalk.yellow.bold("Credit : Bailey"),
+            chalk.green.bold("[ WhatsApp ]"),
+            chalk[randomColor](pushname),
+            chalk[randomColor](" : "),
+            chalk.white(body)
+        );
+
+        const { default: baileyHandler } = await import("./bailey.js");
+        baileyHandler(sock, m);
+    });
+}
+
+// Jalankan Koneksi WhatsApp
+connectToWhatsApp();

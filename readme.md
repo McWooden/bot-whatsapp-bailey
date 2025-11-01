@@ -13,6 +13,13 @@ Versi ini menghilangkan fitur kompleks seperti AI, scraping (TikTok/Instagram), 
 
 Dukungan komunitas sangat penting—jangan lupa beri apresiasi ke Lenwy agar konten berkualitas terus bermunculan! 🚀
 
+## Cerita Pembuatan Bailey
+Halo! Saya **Kardus Developer**, seorang programmer dan content creator yang suka eksplorasi kode open-source sambil bikin konten belajar coding di platform seperti YouTube dan blog. Pada dasarnya, Bailey tidak mengupdate docs-nya secara rutin—saya lebih fokus ke pengembangan inti dan eksperimen pribadi. Saya belajar cara membuat bot WhatsApp ini lewat pencarian di Google dan YouTube, di mana saya nemu banyak tutorial bagus.
+
+Pada saat ini (November 2025), Lenwy sedang menjelaskan cara kerja WhatsApp bot-nya di channel YouTube-nya, yang bikin saya excited banget. Saya langsung mempelajari kodenya dari repo GitHub-nya, lalu memutuskan untuk membuat versi paling sederhana: basic structure dari Bailey itu sendiri. Lenwy adalah referensi utama saya—saya ambil esensi koneksi socket, handler pesan, dan auth state-nya, tapi potong semua yang berlebihan biar lebih mudah dipahami pemula seperti saya dulu.
+
+Tujuannya? Biar ada versi "starter kit" yang gak overwhelming, tapi tetep powerful. Kalo kamu suka cerita ini, follow saya di [X/Twitter @KardusDev](https://x.com/kardusdev) atau subscribe channel YouTube saya untuk konten coding santai! Mari belajar bareng—dan jangan lupa dukung Lenwy ya! 💡
+
 ## Fitur
 - **Log Pesan Masuk**: Tampilkan pesan di terminal dengan warna random.
 - **Command Admin**: Cek apakah user adalah admin (`!admin`).

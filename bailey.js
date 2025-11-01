@@ -1,24 +1,23 @@
 /*  
-
-  Made By Lenwy
-  Base : Lenwy
+  Made By Lenwy (Original Base)
   WhatsApp : wa.me/6283829814737
   Telegram : t.me/ilenwy
   Youtube : @Lenwy
-
   Channel : https://whatsapp.com/channel/0029VaGdzBSGZNCmoTgN2K0u
 
+  Modified By Kardus Developer (Bailey Version)
+  Base : Inspired by Lenwy
+  WhatsApp : wa.me/6287745457767
+  YouTube : @kardusdeveloper
 */
 
-// Import Module
 import fs from 'fs';
 
-// Custom Prefix
-export const admin = ['6283189202482@s.whatsapp.net']; // Sesuaikan Nomor Admin
+export const admin = ['6287745457767@s.whatsapp.net'];
+export const prefix = '/';
+export const imagePath = './database/image/KucingLucu.jpeg';
 
-export const prefix = '!';
-
-export const image = './database/image/KucingLucu.jpeg';
+const menuImage = fs.readFileSync(imagePath);
 
 // Custom Message
 export const mess = {
@@ -35,41 +34,30 @@ export default async (sock, m) => {
 
     const body = msg.message.conversation || msg.message.extendedTextMessage?.text || "";
     const sender = msg.key.remoteJid;
-    const pushname = msg.pushName || "Bailey";
-    const args = body.slice(1).trim().split(" ");
-    const command = args.shift().toLowerCase();
-    const q = args.join(" ");
 
     if (!body.startsWith(prefix)) return;
 
+    // Parse command
+    const command = body.slice(prefix.length).trim().split(' ')[0]?.toLowerCase() || '';
+
     const baileyreply = (teks) => sock.sendMessage(sender, { text: teks }, { quoted: msg });
-    const isGroup = sender.endsWith('@g.us');
     const isAdmin = admin.includes(sender);
-    const menuImage = fs.readFileSync(image);
+    const isGroup = sender.endsWith('@g.us');
 
-    switch (command) {
-
-        // Admin (case admin)
-        case "admin": {
-            if (!isAdmin) return baileyreply(mess.admin);
-            baileyreply("🎁 *Kamu Adalah Admin*");
-        }
-        break;
-
-        // Kirim Gambar (case mengirim gambar)
-        case "gambar": {
-            await sock.sendMessage(sender,
-                {
-                    image: menuImage,
-                    caption: `*Bailey Bot*\n\nKirim gambar contoh.`,
-                    mentions: [sender]
-                },
-                { quoted: msg }
-            );
-        }
-        break;
-
-        // Default
-        default: { baileyreply(mess.default); }
+    // If-else chain
+    if (command === 'admin') {
+        if (!isAdmin) return baileyreply(mess.admin);
+        baileyreply('🎁 *Kamu Adalah Admin*');
+    } else if (command === 'group') {
+        if (!isGroup) return baileyreply(mess.group);
+        baileyreply("🎁 *Kamu Sedang Berada Di Dalam Grup*");
+    } else if (command === 'gambar') {
+        await sock.sendMessage(sender, {
+            image: menuImage,
+            caption: `*Bailey Bot*\n\nKirim gambar contoh.`,
+            mentions: [sender]
+        }, { quoted: msg });
+    } else {
+        baileyreply(mess.default);
     }
 };

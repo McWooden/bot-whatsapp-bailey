@@ -1,4 +1,15 @@
-// index.js
+/*  
+
+  Made By Lenwy
+  Base : Lenwy
+  WhatsApp : wa.me/6283829814737
+  Telegram : t.me/ilenwy
+  Youtube : @Lenwy
+
+  Channel : https://whatsapp.com/channel/0029VaGdzBSGZNCmoTgN2K0u
+
+*/
+
 // Import Module 
 import { makeWASocket, useMultiFileAuthState, fetchLatestBaileysVersion } from "baileys";
 import pino from "pino";

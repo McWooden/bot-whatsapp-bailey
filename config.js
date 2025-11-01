@@ -1,4 +1,15 @@
-// config.js (file baru untuk global vars, opsional - bisa digabung ke bailey.js jika mau lebih minimal)
+/*  
+
+  Made By Lenwy
+  Base : Lenwy
+  WhatsApp : wa.me/6283829814737
+  Telegram : t.me/ilenwy
+  Youtube : @Lenwy
+
+  Channel : https://whatsapp.com/channel/0029VaGdzBSGZNCmoTgN2K0u
+
+*/
+
 global.admin = ['6285891783172@s.whatsapp.net'];
 global.prefix = '!';
 global.image = './database/image/KucingLucu.jpeg';
